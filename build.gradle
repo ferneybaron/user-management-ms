@@ -1,0 +1,85 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version "${springBootVersion}"
+	id 'io.spring.dependency-management' version "${dependencyManagementVersion}"
+	id 'jacoco'
+}
+
+group = "${groupPackage}"
+version = "${appVersion}"
+
+java {
+	sourceCompatibility = "${sourceCompatibilityProp}"
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Spring Boot Starters
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Databases
+	runtimeOnly 'com.h2database:h2'
+
+	// OpenAPI
+	implementation "org.springdoc:springdoc-openapi-ui:${springDocOpenApiVersion}"
+
+	// JWT
+	implementation "io.jsonwebtoken:jjwt:${jsonWebTokenVersion}"
+
+	// Development and Tools
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+	// Testing
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('bootBuildImage') {
+	builder = 'paketobuildpacks/builder-jammy-base:latest'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+jacoco {
+	toolVersion = "${jacoco.toolVersion}"
+	reportsDirectory = layout.buildDirectory.dir("${jacoco.reportsDirectory}")
+}
+
+jacocoTestReport {
+	reports {
+		xml.required = true
+		csv.required = true
+		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+	}
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					'**/model/**',
+					'**/dto/**',
+					'**/entity/**',
+					'**/mapper/**',
+					'**/Application.class'
+			])
+		}))
+	}
+}
+
+test.finalizedBy jacocoTestReport
