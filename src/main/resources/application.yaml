@@ -1,0 +1,9 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /user-management
+
+jwt:
+  issuer: fbaron.com
+  secret: eac4fdc0548e4a8c9ef9ae599b498ec2
+  expiration: 86400000
