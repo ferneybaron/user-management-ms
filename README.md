@@ -91,7 +91,7 @@ curl --location 'localhost:8080/user-management/api/v1/sign-up' \
 
 ### cURL login
 ```bash
-curl --location 'localhost:8080/api/v1/login' \
+curl --location 'localhost:8080/user-management/api/v1/login' \
 --header 'Content-Type: application/json' \
 --data '{
     "token": "YOUR_TOKEN"
