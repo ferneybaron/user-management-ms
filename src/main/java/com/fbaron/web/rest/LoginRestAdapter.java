@@ -1,6 +1,7 @@
 package com.fbaron.web.rest;
 
 import com.fbaron.core.service.user.UserService;
+import com.fbaron.web.dto.exception.ExceptionDetailDTO;
 import com.fbaron.web.dto.user.LoginDTO;
 import com.fbaron.web.dto.user.UserDTO;
 import com.fbaron.web.mapper.UserDtoMapper;
@@ -44,9 +45,23 @@ public class LoginRestAdapter {
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = UserDTO.class))),
             @ApiResponse(responseCode = "400", description = BAD_REQUEST,
-                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ExceptionDetailDTO.class))),
+            @ApiResponse(responseCode = "404", description = NOT_FOUND,
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ExceptionDetailDTO.class))),
+            @ApiResponse(responseCode = "403", description = FORBIDDEN,
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ExceptionDetailDTO.class))),
+            @ApiResponse(responseCode = "405", description = METHOD_NOT_ALLOWED,
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ExceptionDetailDTO.class))),
+            @ApiResponse(responseCode = "415", description = UNSUPPORTED_MEDIA_TYPE,
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ExceptionDetailDTO.class))),
             @ApiResponse(responseCode = "500", description = INTERNAL_SERVER_ERROR,
-                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ExceptionDetailDTO.class))),
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> login(@RequestBody @Valid LoginDTO dto) {
