@@ -98,34 +98,12 @@ git clone https://github.com/ferneybaron/user-management-ms.git
 http://localhost:8080/user-management/swagger-ui/index.html
 ```
 
+### OpenAPI api-docs
+```
+http://localhost:8080/user-management/v3/api-docs
+```
+
 ### Jacoco Resources
 ```
 build/jacocoHtml/index.html
-```
-
-### cURL sign-up
-```bash
-curl --location 'localhost:8080/user-management/api/v1/sign-up' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "name": "Julio Gonzalez",
-    "email": "julio@testssw.cl",
-    "password": "a2asfGfdfdf4",
-    "phones": [
-        {
-            "number": 87650009,
-            "cityCode": 7,
-            "countryCode": "25"
-        }
-    ]
-}'
-```
-
-### cURL login
-```bash
-curl --location 'localhost:8080/user-management/api/v1/login' \
---header 'Content-Type: application/json' \
---data '{
-    "token": "YOUR_TOKEN"
-}'
 ```
