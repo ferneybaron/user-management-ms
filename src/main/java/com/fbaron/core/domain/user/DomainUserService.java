@@ -70,7 +70,7 @@ public class DomainUserService implements UserService {
                 .orElseThrow(() -> new UserNotFoundException(String.format(USER_NOT_FOUND_WITH_EMAIL, username)));
         user.setLastLogin(LocalDateTime.now());
         user.setToken(jwtService.generateToken(username));
-        return user;
+        return userRepository.saveUser(user);
     }
 
     /**
