@@ -4,8 +4,8 @@ This is a demo Spring Boot project for the creation and querying of users.
 
 ## Key Features
 
-- JWT service
-- User Management
+- SignUp
+- LogIn
 
 ## Architecture
 
@@ -33,6 +33,38 @@ The `Web` module is responsible for handling the communication and interaction b
 ## Data Source Layer
 
 The `data` module is responsible for managing the data persistence and external service integration aspects of the application.
+
+## Sequence Diagram
+
+### Web Layer with Core Layer port (Service Interface)
+
+### signUp()
+
+![architecture](docs/img/signup/web-core-ds.png)
+
+### login()
+
+![architecture](docs/img/login/web-core-ds.png)
+
+### Core Layer with Repository Interface
+
+### signUp()
+
+![architecture](docs/img/signup/core-datasource-ds.png)
+
+### login()
+
+![architecture](docs/img/login/core-datasource-ds.png)
+
+### Data Source Layer
+
+### saveUser()
+
+![architecture](docs/img/signup/datasource-ds.png)
+
+### findUserByEmail()
+
+![architecture](docs/img/login/datasource-ds.png)
 
 ## Installation and Usage
 
